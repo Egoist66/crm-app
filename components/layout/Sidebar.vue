@@ -2,6 +2,7 @@
 
 <template>
   <aside class="px-5 py-8 bg-sidebar h-full relative w-full">
+    <UiButton @click="console.log(2)">Click</UiButton>
     <NuxtLink class="mb-10 block" to="/">
       <NuxtImg
         class="mx-auto"
