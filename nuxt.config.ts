@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["~/assets/styles/global.scss", "~/assets/styles/tailwind.css"],
+  css: ["~/assets/css/global.scss", "~/assets/css/tailwind.css"],
 
   vue: {
     propsDestructure: true,
@@ -52,4 +52,8 @@ export default defineNuxtConfig({
   },
 
   modules: ["shadcn-nuxt", "@pinia/nuxt", "@nuxtjs/tailwindcss", "@nuxt/image"],
+  shadcn: {
+    prefix: '',
+    componentDir: './components/ui',
+  }
 });
