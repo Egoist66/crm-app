@@ -4,7 +4,7 @@ import { cn } from '@/utils';
 
 
 interface Props  {
-  variant?: NonNullable<Parameters<typeof buttonVariants>[0]>
+  variant?: string
   size?: NonNullable<Parameters<typeof buttonVariants>[0]>
   as?: string
 }

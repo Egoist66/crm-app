@@ -7,8 +7,9 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   experimental: {
     viewTransition: true,
+    asyncContext: true,
   },
-  
+
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     head: {
@@ -36,10 +37,16 @@ export default defineNuxtConfig({
     COLLECTION_CUSTOMERS: "customers",
     COLLECTION_COMMENTS: "comments",
     STORAGE_ID: "crm-storage",
-  
+
     // Keys within public are also exposed client-side
     public: {
       apiBase: "/api",
+      APP_WRITE_ID: "66a93a3d0025e15eec01",
+      DB_ID: "crm-db",
+      COLLECTION_DEALS: "deals",
+      COLLECTION_CUSTOMERS: "customers",
+      COLLECTION_COMMENTS: "comments",
+      STORAGE_ID: "crm-storage",
     },
   },
 
@@ -64,17 +71,22 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
-    ["@nuxtjs/google-fonts", {
-      families: {
-        Lato: [300, 400, 700],
-        ital: [300],
-      }
-    }],
-   '@nuxt/icon'
+    [
+      "@nuxtjs/google-fonts",
+      {
+        families: {
+          Lato: [300, 400, 700],
+          ital: [300],
+        },
+      },
+    ],
+    "@nuxt/icon",
   ],
   shadcn: {
     prefix: "Ui",
     componentDir: "./components/ui",
   },
-  
+  pinia: {
+    storesDirs: ["./store/**"],
+  },
 });

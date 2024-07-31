@@ -4,10 +4,11 @@ import { Client, Account, Databases, Storage, ID as AppwriteID } from 'appwrite'
 export const client = new Client();
 export const ID = AppwriteID;
 
-const {APP_WRITE_ID} = useRuntimeConfig()
+const config  = useRuntimeConfig()
+
 client
 .setEndpoint('https://cloud.appwrite.io/v1')
-.setProject(APP_WRITE_ID);
+.setProject(config.public.APP_WRITE_ID);
 
 
 

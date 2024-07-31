@@ -14,6 +14,9 @@ importers:
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.34)
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.34)
       appwrite:
         specifier: ^15.0.0
         version: 15.0.0
