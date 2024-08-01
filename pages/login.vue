@@ -46,7 +46,8 @@ const config = useRuntimeConfig()
 
         <div class="flex auth-blocks flex-wrap gap-5 items-center justify-center">
           <UiButton
-            @click="login()" 
+            @click="login()"
+            :disabled="!email || !password"
             type='submit' 
             variant='default' 
             class="w-1/3 mt-5">Enter an account

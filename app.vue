@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <NuxtLoadingIndicator color="var(--primary)" :height="5" :duration="2000" />
   <NuxtLayout name="default">

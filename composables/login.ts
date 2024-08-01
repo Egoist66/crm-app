@@ -1,8 +1,8 @@
-import { account, ID } from "~/service/appwrite.service";
+import { account, ID } from "~/utils/appwrite.service";
 export const useLogin = () => {
 
-  const {isLoading, setLoading} = useLoadingStore();
-  const {setUser} = useAuthStore()
+  const {setLoading} = useLoadingStore();
+  const {setUser, setAuth, clear} = useAuthStore()
   const router = useRouter()
   
   const email = ref<string>('')
@@ -26,15 +26,29 @@ export const useLogin = () => {
   const login = async(): Promise<void> => {
     setLoading(true)
 
-    await account.createEmailPasswordSession(email.value, password.value)
-    const userData = await account.get()
-    if(userData){
-      setUser(userData)
-    }
+    try {
+      await account.createEmailPasswordSession(email.value, password.value)
+      const userData = await account.get()
+      if(userData){
+        setUser(userData)
+        setAuth(userData.status)
+        await router.replace({path: '/'})
 
-    resetFields()
-    await router.replace({path: '/'})
-    setLoading(false)
+
+      }
+
+      resetFields()
+
+    } catch (e: Error | any) {
+      console.log(e.message)
+      
+    }
+    finally {
+      setLoading(false)
+
+    }
+    
+    
 
 
   }
@@ -48,13 +62,39 @@ export const useLogin = () => {
   const register = async(): Promise<void> => {
 
     setLoading(true)
-    const response = await account.create(
-      ID.unique(), 
-      email.value, 
-      password.value, 
-      name.value
-    )
-    await login()
+   
+    try {
+      const response = await account.create(
+        ID.unique(), 
+        email.value, 
+        password.value, 
+        name.value
+      )
+      await router.replace({path: '/login'})
+    }
+    catch (e: Error | any) {
+      console.log(e.message)
+    }
+    finally {
+      setLoading(false)
+    }
+    
+  }
+
+  const logout = async () => {
+    setLoading(true)
+    try {
+      clear()
+      await account.deleteSession("current")
+      await router.replace({path: '/login'})
+      setAuth(false)
+    }
+    catch (e: Error | any) {
+      console.log(e.message)
+    }
+    finally {
+      setLoading(false)
+    }
   }
 
   return {
@@ -62,6 +102,7 @@ export const useLogin = () => {
     password,
     name,
     login,
+    logout,
     register
   }
 }

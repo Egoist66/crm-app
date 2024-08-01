@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     asyncContext: true,
+    
   },
 
   app: {
@@ -24,9 +25,8 @@ export default defineNuxtConfig({
 
   vue: {
     propsDestructure: true,
-    compilerOptions: {
-      isCustomElement: (tag) => tag.includes("UIButton"),
-    },
+    
+  
   },
 
   runtimeConfig: {
@@ -50,15 +50,19 @@ export default defineNuxtConfig({
     },
   },
 
-  $production: {
-    routeRules: {
-      "/**": { isr: true },
-    },
-  },
+
 
   $development: {
     devtools: { enabled: true },
+    
   },
+
+  $production: {
+    routeRules: {
+      '/**': { isr: true, prerender: true }
+    }
+  },
+
 
   devtools: {
     timeline: {

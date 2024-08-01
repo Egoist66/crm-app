@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {buttonVariants } from '.'
-import { cn } from '@/utils';
+import { cn } from '~/utils';
 
 
 interface Props  {

@@ -40,7 +40,7 @@ const { email, password, name, register } = useLogin();
         </div>
 
         <div class="flex flex-wrap auth-blocks gap-5 items-center justify-center">
-          <UiButton @click="register()" type='button' variant='default' class="w-1/3 mt-5">Register</UiButton>
+          <UiButton :disabled="!email || !password" @click="register()" type='button' variant='default' class="w-1/3 mt-5">Register</UiButton>
           <UiButton  @click="$router.push('/login')" type='button' variant='default' class="w-1/3 mt-5">Login</UiButton>
         </div>
 
