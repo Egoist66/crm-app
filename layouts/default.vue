@@ -4,19 +4,28 @@ const authStore = useAuthStore();
 const loadingStore = useLoadingStore();
 const router = useRouter();
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
   loadingStore.setLoading(true);
-  try {
-    const user = await account.get();
+  
+  account.get().then(user => {
     if (user) {
       authStore.setUser(user);
       authStore.setAuth(user.status)
     }
-  } catch (error: Error | any) {
+  }).catch(async () => {
+    authStore.setAuth(false)
     await router.replace("/login");
-  } finally {
-    loadingStore.setLoading(false);
-  }
+  })
+  
+  .finally (() => {
+    loadingStore.setLoading(false)
+  }) 
+
+  
+
+  
+   
+
 });
 </script>
 

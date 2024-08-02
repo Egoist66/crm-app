@@ -1,10 +1,15 @@
 <script setup lang="ts">
 
 
+
 useHead({
   titleTemplate: "%s - Login",
   title: "RazorCRM",
 });
+
+definePageMeta({
+  middleware: "auth",
+})
 
 const {
   email, 
@@ -14,7 +19,6 @@ const {
 } = useLogin();
 
 
-const config = useRuntimeConfig()
 
 
 </script>

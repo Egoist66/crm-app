@@ -16,85 +16,66 @@ export const useLogin = () => {
     name.value = ''
   }
 
-
-  /**
- * Asynchronously logs in the user by creating an email password session with the provided email and password.
- * If successful, retrieves the user data and sets the user state. Resets the fields and navigates to the home page.
- *
- * @return {Promise<void>} A Promise that resolves when the login process is complete.
- */
-  const login = async(): Promise<void> => {
+  const login = () => {
     setLoading(true)
 
-    try {
-      await account.createEmailPasswordSession(email.value, password.value)
-      const userData = await account.get()
-      if(userData){
-        setUser(userData)
-        setAuth(userData.status)
+    account.createEmailPasswordSession(email.value, password.value)
+      .then(() => {
+        return account.get().then((userData) => {
+          if(userData) {
+            setUser(userData)
+            setAuth(userData.status)
+          }
+        })
+      })
+      .then(async () => {
         await router.replace({path: '/'})
 
-
-      }
-
-      resetFields()
-
-    } catch (e: Error | any) {
-      console.log(e.message)
-      
-    }
-    finally {
-      setLoading(false)
-
-    }
-    
-    
-
-
+        resetFields()
+      })
+      .catch ((e: Error | any) => {
+        console.log(e.message)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
-  /**
-   * Asynchronously registers a new user by creating an account with the provided email, password, and name.
-   * Navigates to the login page after successful registration.
-   *
-   * @return {Promise<void>} A Promise that resolves when the registration process is complete.
-   */
-  const register = async(): Promise<void> => {
+  const register = () => {
 
     setLoading(true)
    
-    try {
-      const response = await account.create(
-        ID.unique(), 
-        email.value, 
-        password.value, 
-        name.value
-      )
+    account.create(
+      ID.unique(), 
+      email.value, 
+      password.value, 
+      name.value
+    )
+    .then(async () => {
       await router.replace({path: '/login'})
-    }
-    catch (e: Error | any) {
+    })
+  
+    .catch ((e: Error | any) => {
       console.log(e.message)
-    }
-    finally {
+    }) 
+    .finally(() => {
       setLoading(false)
-    }
+
+    }) 
     
   }
 
-  const logout = async () => {
+  const logout = () => {
     setLoading(true)
-    try {
-      clear()
-      await account.deleteSession("current")
-      await router.replace({path: '/login'})
-      setAuth(false)
-    }
-    catch (e: Error | any) {
-      console.log(e.message)
-    }
-    finally {
-      setLoading(false)
-    }
+    clear()
+    account.deleteSession("current")
+      .then(async () => {
+        await router.replace({path: '/login'})
+      })
+      .finally(() => {
+        setAuth(false)
+        setLoading(false)
+      })
   }
 
   return {
@@ -106,3 +87,4 @@ export const useLogin = () => {
     register
   }
 }
+

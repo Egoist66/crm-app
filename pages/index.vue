@@ -1,9 +1,12 @@
+import { useAuthStore } from '../store/auth.store';
 <script setup lang="ts">
 
  useHead({
-  titleTemplate: "%s - Home",
+  titleTemplate: "%s - Dashboard",
   title: 'RazorCRM',
  })
+
+ const {isAuth} = useAuthStore()
 
 
 
@@ -13,7 +16,20 @@
 <template>
   <div :class="$route.name">
 
-    <h1 class="font-bold text-2xl mb-10">Razor CRM System</h1>
+ 
+
+    <h1 v-if="isAuth()" class="font-bold text-2xl mb-10">Dashboard</h1>
+
+
+    <div class="flex flex-wrap items-center justify-between">
+      <UiCard draggable="true" class="shadow:sm mb-3 w-1/2">
+        <UiCardHeader role="button">name card</UiCardHeader>
+        <UiCardContent>Company</UiCardContent>
+        <UiCardFooter>Date</UiCardFooter>
+      </UiCard>
+
+      
+    </div>
 
   </div>
 

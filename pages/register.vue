@@ -6,6 +6,12 @@ useHead({
 });
 
 const { email, password, name, register } = useLogin();
+
+
+definePageMeta({
+  middleware: "auth",
+})
+
 </script>
 
 <template>

@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+ const config = useRuntimeConfig()
+  setClientProjectEndpoint(config.public.APP_WRITE_ID)
+
+</script>
 
 <template>
   <NuxtLoadingIndicator color="var(--primary)" :height="5" :duration="2000" />
