@@ -23,6 +23,7 @@ useHead({
 <style scoped lang="scss">
 .wrapper {
     @apply flex items-center justify-center w-screen h-screen;
+    overflow: hidden !important;
 }
 
 </style>

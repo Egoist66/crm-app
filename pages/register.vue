@@ -5,6 +5,20 @@ useHead({
   title: "RazorCRM",
 });
 
+const isHiddenPage = useState('isHiddenPage', () => false)
+const {isAuth} = useAuthStore();
+
+watchEffect(() => {
+   
+   if(isAuth()) {
+     isHiddenPage.value = true
+   }
+   else {
+     isHiddenPage.value = false
+   }
+ })
+ 
+
 const { email, password, name, register } = useLogin();
 
 
@@ -15,7 +29,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="flex items-center justify-center min-h-screen w-full">
+  <div v-if="!isHiddenPage" class="flex items-center overflow-hidden justify-center min-h-screen w-full">
     <div class="rounded shadow-lg bg-sidebar w-1/2 p-5">
       <h1 class="text-2xl font-bold text-center mb-5">Create an account</h1>
 

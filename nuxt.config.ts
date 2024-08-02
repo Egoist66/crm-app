@@ -53,12 +53,6 @@ export default defineNuxtConfig({
     
   },
 
-  $production: {
-    routeRules: {
-      '/**': { isr: true}
-    }
-  },
-
 
   devtools: {
     timeline: {

@@ -1,5 +1,10 @@
 @import './vars.scss';
 
+
+body {
+    overflow-x: hidden !important;
+}
+
 main {
     @apply p-8;
 }

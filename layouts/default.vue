@@ -7,10 +7,15 @@ const router = useRouter();
 onBeforeMount(() => {
   loadingStore.setLoading(true);
   
-  account.get().then(user => {
+  account.get().then(async (user) => {
     if (user) {
       authStore.setUser(user);
       authStore.setAuth(user.status)
+
+    }
+    else {
+      authStore.setAuth(false)
+      await router.replace("/login");
     }
   }).catch(async () => {
     authStore.setAuth(false)
