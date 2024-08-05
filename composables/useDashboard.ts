@@ -30,6 +30,10 @@ export const useDashboard = () => {
             //     }
             // })
 
+            newBoard.forEach(column => {
+                column.items = [];
+            })
+
             for(let deal of deals){
                 const column = newBoard.find(col => col.id === deal.status)
                 if(column){
