@@ -1,4 +1,17 @@
 import { account, ID } from "~/utils/appwrite.service";
+
+
+/**
+ * Returns an object containing functions and variables for handling login and registration.
+ *
+ * @return {Object} An object with the following properties:
+ *   - `email`: A reactive reference to the email input.
+ *   - `password`: A reactive reference to the password input.
+ *   - `name`: A reactive reference to the name input.
+ *   - `login`: A function that handles the login process.
+ *   - `logout`: A function that handles the logout process.
+ *   - `register`: A function that handles the registration process.
+ */
 export const useLogin = () => {
 
   const {setLoading} = useLoadingStore();

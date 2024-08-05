@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+
  const config = useRuntimeConfig()
   setClientProjectEndpoint(config.public.APP_WRITE_ID)
 
