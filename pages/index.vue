@@ -18,42 +18,25 @@ onMounted(() => {
 <template>
   <div :class="$route.name">
 
+    <h1 v-if="isAuth()" class="font-bold text-2xl mb-5">Dashboard</h1>
 
+    <button @click="refetch()" class="btn block mb-10 transition-colors hover:text-primary">
+      <Icon title="Refresh" size="25" name="mdi:refresh" />
+    </button>
 
-    <h1 v-if="isAuth()" class="font-bold text-2xl mb-10">Dashboard</h1>
-
-    <div class="text-center text-2xl" v-if="isLoading || isRefetching">Loading...</div>
-
-    <div v-else class="flex flex-wrap gap-5 justify-between items-baseline">
-
-      <div v-for="(column, index) in data" :key="column.id">
-
-        <div class="rounded bg-slate-700 py-1 px-5 mb-2 text-center">
-          {{ column.name }}
-        </div>
-
-        <div>
-          <UiCard v-for="card in column.items" :key="card.id" draggable="true" class="shadow:sm mb-3 w-full">
-            <UiCardHeader role="button"><b class="underlin">Deal Name - </b><span class="text-cyan-400">{{ card.title }}</span>
-            </UiCardHeader>
-            <UiCardContent><b class="underline">Company Name - </b> <span class="pl-2 text-primary">{{ card.companyName }}</span></UiCardContent>
-            <UiCardFooter><b class="underline">Created At - </b> <span class="pl-2 text-sky-500">{{ new Date(card.$created_at).toLocaleString()
-                }}</span></UiCardFooter>
-          </UiCard>
-        </div>
-
-      </div>
-
-
-
-
-
-
-    </div>
-
+    <div class="text-center text-2xl" v-if="isLoading">Loading...</div>
+    <Dashboard v-else :class="{updating: isRefetching, dashboard: true}"  :refetch="refetch"   :data="data" />
   </div>
 
 
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.btn {
+  @apply text-lg;
+}
+
+
+
+</style>

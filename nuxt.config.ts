@@ -8,7 +8,6 @@ export default defineNuxtConfig({
   experimental: {
     viewTransition: true,
     asyncContext: true,
-    
   },
 
   app: {
@@ -25,13 +24,10 @@ export default defineNuxtConfig({
 
   vue: {
     propsDestructure: true,
-    
-  
   },
 
   runtimeConfig: {
     // The private keys which are only available server-side
-  
 
     // Keys within public are also exposed client-side
     public: {
@@ -42,17 +38,12 @@ export default defineNuxtConfig({
       COLLECTION_CUSTOMERS: "customers",
       COLLECTION_COMMENTS: "comments",
       STORAGE_ID: "crm-storage",
-     
     },
   },
 
-
-
   $development: {
     devtools: { enabled: true },
-    
   },
-
 
   devtools: {
     timeline: {
@@ -60,15 +51,30 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["shadcn-nuxt", "@pinia/nuxt", "@nuxtjs/tailwindcss", "@nuxt/image", [
-    "@nuxtjs/google-fonts",
-    {
-      families: {
-        Lato: [300, 400, 700],
-        ital: [300],
+  modules: [
+    "shadcn-nuxt",
+    "@pinia/nuxt",
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    [
+      "@nuxtjs/google-fonts",
+      {
+        families: {
+          Lato: [300, 400, 700],
+          ital: [300],
+        },
       },
-    },
-  ], "@nuxt/icon"],
+    ],
+    "@nuxt/icon",
+    [
+      "@vee-validate/nuxt",
+      {
+        // disable or enable auto imports
+        autoImports: true,
+        
+      },
+    ],
+  ],
   shadcn: {
     prefix: "Ui",
     componentDir: "./components/ui",
