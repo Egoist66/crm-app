@@ -46,6 +46,7 @@ const {
     </div>
 
     <form v-if="isOpenForm" class="form" @submit.prevent="onSubmit">
+
         <UiInput 
             placeholder="Name"
             v-model="nameField"
@@ -78,7 +79,7 @@ const {
             class="input" 
         />
 
-        <button :title="isFormDisabled() ? 'You can\'t create a deal - fill the form' : 'Create deal'":style="{opacity: isFormDisabled() ? 0.5 : 1, cursor: isFormDisabled() ? 'not-allowed' : 'pointer'}" type="submit" :disabled="isPending || isFormDisabled()" class="btn">
+        <button :style="{opacity: isFormDisabled() ? 0.5 : 1, cursor: isFormDisabled() ? 'not-allowed' : 'pointer'}" type="submit" :disabled="isPending || isFormDisabled()" class="btn">
             {{ isPending ? 'Creating...' : 'Create deal' }}
         </button>
 

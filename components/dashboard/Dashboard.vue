@@ -13,12 +13,13 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
 
  const {handleDragOver, handleDrop, handleDragStart} = useDashboard()
 
+ const slideStore = useSlideOverStore()
+
 </script>
 
 <template>
   
   <div class="flex flex-wrap gap-5 justify-between items-baseline">
-
 
     <div 
     @dragover="handleDragOver" 
@@ -34,10 +35,11 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
 
      <div>
        <CreateDeal :status="column.id" :refetch="refetch ? refetch: () => {}" />
-        <UiCard 
+        <UiCard
           v-for="card in column.items" 
           :key="card.id" draggable="true" 
           class="shadow:sm mb-3 w-full"
+          @click="slideStore.setOpenSliderOver(card ? card : null)" 
           @dragstart="handleDragStart(card, column)"
         >
           <UiCardHeader role="button">
@@ -60,9 +62,30 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
 
           </UiCardFooter>
 
+            
 
 
         </UiCard>
+
+        <USlideover v-model="slideStore.slideOver.isOpen">
+          <div class="p-4 flex-1">
+            <UButton
+              color="gray"
+              variant="ghost"
+              size="sm"
+              icon="i-heroicons-x-mark-20-solid"
+              class="flex sm:hidden absolute end-5 top-5 z-10"
+              square
+              padded
+              @click="slideStore.setOpenSliderOver(null)"
+            />
+            <Placeholder class="h-full" >
+              {{ slideStore.slideOver.card?.id }}
+              {{ slideStore.slideOver.card?.$created_at }}
+
+            </Placeholder>
+          </div>
+        </USlideover>
      </div>
 
 

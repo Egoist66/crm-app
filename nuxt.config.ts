@@ -52,9 +52,9 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxt/ui',
     "shadcn-nuxt",
     "@pinia/nuxt",
-    "@nuxtjs/tailwindcss",
     "@nuxt/image",
     [
       "@nuxtjs/google-fonts",
@@ -71,9 +71,9 @@ export default defineNuxtConfig({
       {
         // disable or enable auto imports
         autoImports: true,
-        
       },
     ],
+   
   ],
   shadcn: {
     prefix: "Ui",

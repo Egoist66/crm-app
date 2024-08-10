@@ -27,15 +27,8 @@ export const useDashboard = () => {
         staleTime: 30000,
         queryFn: async () => await DB.listDocuments(config.DB_ID, config.COLLECTION_DEALS),
         select: (data) => {
-            const newBoard = [...DashboardData]
+            const newBoard = DashboardData.map(item => ({...item, column: []}))
             const deals = data.documents as unknown as IDeal[]
-
-
-            // deals.forEach((deal, i: number) => {
-            //     if(deal.status === newBoard[i].id) {
-            //         newBoard[i].items.push(deal as unknown as ICard)
-            //     }
-            // })
 
             newBoard.forEach(column => {
                 column.items = [];
