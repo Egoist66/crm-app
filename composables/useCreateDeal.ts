@@ -39,7 +39,7 @@ export const useCreateDeal = (status: string, callback?: () => void) => {
 
     const {handleSubmit, defineField, handleReset} = useForm<IDealFormState>({
         initialValues: {
-            status
+            status,
         }
     })
     
@@ -51,7 +51,11 @@ export const useCreateDeal = (status: string, callback?: () => void) => {
     const [nameField, nameFieldAttrs] = defineField('name')
 
 
+    const isFormDisabled = () => {
+        return !customerNameField.value || !priceField.value || !customerEmailField.value || !nameField.value
+    }
     /*  Form Actions - Mutations */
+
 
 
     const {mutate, isPending} = useMutation({
@@ -68,6 +72,9 @@ export const useCreateDeal = (status: string, callback?: () => void) => {
 
             // refetch
             callback && callback()
+        },
+        onError(error) {
+            console.log(error)
         }
     })
 
@@ -76,7 +83,15 @@ export const useCreateDeal = (status: string, callback?: () => void) => {
 
 
     const onSubmit = handleSubmit((data: IDealFormState) => {
-        mutate(data)
+        try {
+            if(!data.customer.name || !data.customer.email || !data.price || !data.name) {
+                return
+            }
+            mutate(data)
+        }
+        catch(e) {
+            console.log(e)
+        }
     })
 
 
@@ -103,6 +118,7 @@ export const useCreateDeal = (status: string, callback?: () => void) => {
         nameFieldAttrs,
         isPending,
         toggleOpenForm,
+        isFormDisabled,
         onSubmit,
     }
     

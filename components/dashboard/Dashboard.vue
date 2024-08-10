@@ -10,6 +10,9 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
     refetch?: () => void
  }>()
 
+
+ const {handleDragOver, handleDrop, handleDragStart} = useDashboard()
+
 </script>
 
 <template>
@@ -17,22 +20,32 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
   <div class="flex flex-wrap gap-5 justify-between items-baseline">
 
 
-    <div v-for="(column, index) in data" :key="column.id">
+    <div 
+    @dragover="handleDragOver" 
+    v-for="(column, index) in data" 
+    :key="column.id"
+    @drop="handleDrop(column)"
+    >
 
-      <div class="rounded w-full flex-grow bg-slate-700 py-1 px-5 mb-2 text-center">
+      <div :style="generateGradient(index, data?.length)" class="rounded w-80 flex-grow bg-slate-700 py-1 px-5 mb-2 text-center">
         {{ column.name }}
       </div>
 
 
      <div>
        <CreateDeal :status="column.id" :refetch="refetch ? refetch: () => {}" />
-        <UiCard v-for="card in column.items" :key="card.id" draggable="true" class="shadow:sm mb-3 w-full">
+        <UiCard 
+          v-for="card in column.items" 
+          :key="card.id" draggable="true" 
+          class="shadow:sm mb-3 w-full"
+          @dragstart="handleDragStart(card, column)"
+        >
           <UiCardHeader role="button">
 
             <UiCardTitle><span class="text-cyan-400 capitalize text-2xl font-semibold">{{ card.title}}</span></UiCardTitle>
 
             <UiCardDescription class="text-gray-400">
-              {{ convertCurrency('ru-RU', card.price) }}
+              {{ convertCurrency('en-US', card.price) }}
             </UiCardDescription>
           </UiCardHeader>
           <UiCardContent class="pb-0 text-sm">

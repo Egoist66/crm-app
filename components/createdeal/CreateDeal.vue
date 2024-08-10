@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<{
 const {
     toggleOpenForm,
     onSubmit,
+    isFormDisabled,
     isPending, 
     isOpenForm,
     customerNameField,
@@ -77,7 +78,7 @@ const {
             class="input" 
         />
 
-        <button type="submit" :disabled="isPending" class="btn">
+        <button :title="isFormDisabled() ? 'You can\'t create a deal - fill the form' : 'Create deal'":style="{opacity: isFormDisabled() ? 0.5 : 1, cursor: isFormDisabled() ? 'not-allowed' : 'pointer'}" type="submit" :disabled="isPending || isFormDisabled()" class="btn">
             {{ isPending ? 'Creating...' : 'Create deal' }}
         </button>
 
