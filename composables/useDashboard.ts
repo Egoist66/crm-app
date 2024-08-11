@@ -29,6 +29,7 @@ export const useDashboard = () => {
         select: (data) => {
             const newBoard = DashboardData.map(item => ({...item, column: []}))
             const deals = data.documents as unknown as IDeal[]
+          
 
             newBoard.forEach(column => {
                 column.items = [];
@@ -43,11 +44,17 @@ export const useDashboard = () => {
                         companyName: deal.customer.name,
                         price: deal.price.toString(),
                         title: deal.name,
-                        status: column.name
+                        status: column.name,
+                        avatar_url: deal.customer.avatar_url,
+                        from_source: deal.customer.from_source,
+                        email: deal.customer.email
                     })
 
                     
                 }
+
+                //console.log(column);
+                
 
 
             }

@@ -14,13 +14,13 @@ const { data, isLoading, isRefetching, refetch } = useDashboard()
 onMounted(() => {
   console.log(data)
 })
+
 </script>
 
 <template>
   <div :class="$route.name">
 
     <h1 v-if="isAuth()" class="font-bold text-2xl mb-5">Dashboard</h1>
-
 
     <button @click="refetch()" class="btn block mb-10 transition-colors hover:text-primary">
       <Icon :class="{ 'rotate-loader': isRefetching }" title="Refresh" size="25" name="mdi:refresh" />

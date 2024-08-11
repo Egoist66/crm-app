@@ -79,7 +79,7 @@ const {
             class="input" 
         />
 
-        <button :style="{opacity: isFormDisabled() ? 0.5 : 1, cursor: isFormDisabled() ? 'not-allowed' : 'pointer'}" type="submit" :disabled="isPending || isFormDisabled()" class="btn">
+        <button :title="isFormDisabled() ? 'Please fill in all fields' : ''" :style="{opacity: isFormDisabled() ? 0.5 : 1, cursor: isFormDisabled() ? 'not-allowed' : 'pointer'}" type="submit" :disabled="isPending || isFormDisabled()" class="btn">
             {{ isPending ? 'Creating...' : 'Create deal' }}
         </button>
 

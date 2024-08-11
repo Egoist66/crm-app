@@ -9,18 +9,13 @@ const defaultValue: {card: ICard | null, isOpen: boolean} = {
 export const useSlideOverStore = defineStore('slide', () => {
     const slideOver = ref<typeof defaultValue>(defaultValue)
 
-    const setOpenSliderOver = (card: ICard | null) => {
-        slideOver.value = {
-            card,
-            isOpen: true
-        }
+    const setOpenSliderOver = ({card}: {card?: ICard | null}) => {
+        slideOver.value.card = card ?? null
+        slideOver.value.isOpen = true
     }
 
-    const toggleSlideOver = () => {
-        slideOver.value = {
-            ...slideOver.value,
-            isOpen: !slideOver.value.isOpen
-        }
+    const toggleSlideOver = (isOpen: boolean) => {
+        slideOver.value.isOpen = isOpen
     }
 
     return {

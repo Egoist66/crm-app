@@ -6,6 +6,9 @@ export interface ICard {
     price: string;
     $created_at: string;
     companyName: string;
+    avatar_url: string;
+    from_source?: string;
+    email: string;
     status: string;
 } 
 

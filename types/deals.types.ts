@@ -8,6 +8,7 @@ export interface ICustomer extends IBaseField {
     email: string;
     avatar_url: string;
     from_source?: string;
+    
 }
 
 export interface IComment extends IBaseField {
@@ -26,9 +27,13 @@ export interface IDeal extends IBaseField {
     comments: IComment[];
     created_at: string,
     customer: ICustomer;
+    avatar_url: string;
+    email: string;
+    from_source?: string;
     name: string;
     price: number;
     status: EnumStatus;
+    
 
 }
 

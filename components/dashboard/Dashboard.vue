@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import type { IColumn } from './dashboard.types';
 
 import CreateDeal from '../createdeal/CreateDeal.vue';
+import SlideOver from '../slideover/SlideOver.vue';
 
 
  defineProps<{
@@ -35,29 +36,36 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
 
      <div>
        <CreateDeal :status="column.id" :refetch="refetch ? refetch: () => {}" />
-        <UiCard
+        <UCard
+         title="Click to read more"
+         :ui="{
+          divide: 'divide-y',
+         }"
           v-for="card in column.items" 
           :key="card.id" draggable="true" 
           class="shadow:sm mb-3 w-full"
-          @click="slideStore.setOpenSliderOver(card ? card : null)" 
+          @click="slideStore.setOpenSliderOver({
+            card: {
+              ...card,
+              $created_at: dayjs(card.$created_at).format('DD MMMM YYYY')
+            }
+          })" 
           @dragstart="handleDragStart(card, column)"
         >
           <UiCardHeader role="button">
-
+             
             <UiCardTitle><span class="text-cyan-400 capitalize text-2xl font-semibold">{{ card.title}}</span></UiCardTitle>
 
             <UiCardDescription class="text-gray-400">
               {{ convertCurrency('en-US', card.price) }}
             </UiCardDescription>
           </UiCardHeader>
-          <UiCardContent class="pb-0 text-sm">
-            <div class="text-sm">Company</div> <span class="inline-block ml-1">-</span><span class="pl-2 text-sm text-primary">{{ card.companyName}}</span>
-          </UiCardContent>
+        
           <UiCardFooter>
             <span class="text-cyan-400 text-sm">
 
               {{dayjs(card.$created_at).format('DD MMMM YYYY')}}
-
+      
             </span>
 
           </UiCardFooter>
@@ -65,27 +73,9 @@ import CreateDeal from '../createdeal/CreateDeal.vue';
             
 
 
-        </UiCard>
+        </UCard>
 
-        <USlideover v-model="slideStore.slideOver.isOpen">
-          <div class="p-4 flex-1">
-            <UButton
-              color="gray"
-              variant="ghost"
-              size="sm"
-              icon="i-heroicons-x-mark-20-solid"
-              class="flex sm:hidden absolute end-5 top-5 z-10"
-              square
-              padded
-              @click="slideStore.setOpenSliderOver(null)"
-            />
-            <Placeholder class="h-full" >
-              {{ slideStore.slideOver.card?.id }}
-              {{ slideStore.slideOver.card?.$created_at }}
-
-            </Placeholder>
-          </div>
-        </USlideover>
+        <SlideOver />
      </div>
 
 
