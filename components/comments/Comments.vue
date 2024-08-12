@@ -6,11 +6,10 @@ const props = defineProps<{
     cardId: string
 }>()
 
-const {refetch, data, isLoading} = useComments(props.cardId)
-const {comment, createComment, isPending} = useCreateComment(refetch)
+const { refetch, data, isLoading } = useComments(props.cardId)
+const { comment, createComment} = useCreateComment(refetch)
 
 const card = data as unknown as IDeal
-const input = ref<HTMLInputElement | null>(null)
 
 
 
@@ -18,16 +17,10 @@ const input = ref<HTMLInputElement | null>(null)
 
 
 <template>
-    
-    
-        <UiInput
-            @keyup.enter="createComment()" 
-            type="text" 
-            v-model="comment" 
-            placeholder="Add a comment" 
 
 
-        />
+    <div>
+        <UiInput @keyup.enter="createComment()" type="text" v-model="comment" placeholder="Add a comment" />
 
 
         <div class="text-center text-lg" v-if="isLoading">Comments Loading...</div>
@@ -35,9 +28,10 @@ const input = ref<HTMLInputElement | null>(null)
         <div v-if="card?.comments.length">
             <div class="flex items-start mt-5" v-for="comment in card.comments" :key="comment.$id">
                 <Icon name="radix-icons:chat-bubble" class="text-3xl" />
-                <div :style="{overflowWrap: 'anywhere'}" class="border-border overflow-hidden bg-black/20 rounded p-3 w-full">
-                   <p class="text-sm  mb-2">Comment {{ dayjs(comment.$created_at).format('HH::mm') }}</p>
-                   <p class="text-wrap">{{ comment.text }}</p>
+                <div :style="{ overflowWrap: 'anywhere' }"
+                    class="border-border overflow-hidden bg-black/20 rounded p-3 w-full">
+                    <p class="text-sm  mb-2">Comment {{ dayjs(comment.$created_at).format('HH::mm') }}</p>
+                    <p class="text-wrap">{{ comment.text }}</p>
 
                 </div>
             </div>
@@ -46,17 +40,16 @@ const input = ref<HTMLInputElement | null>(null)
         <div class="mt-5" v-else>
             No comments yet...
         </div>
-    
+    </div>
+
 </template>
 
 
 
 <style scoped>
-
 p {
     text-overflow: ellipsis;
     white-space: wrap;
 
 }
-
 </style>

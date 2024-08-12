@@ -39,16 +39,7 @@ onMounted(() => {
   @apply text-lg;
 }
 
-.rotate-loader {
-  animation: rotate 1s infinite linear;
-  transition: 0.3s all ease;
 
-}
 
-@keyframes rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 </style>
